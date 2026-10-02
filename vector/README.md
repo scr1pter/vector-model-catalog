@@ -18,7 +18,9 @@ Vector's release tooling. It is data, not an executable provider implementation.
 
 The complete original MIT license remains in [`../LICENSE`](../LICENSE), including
 Copyright (c) 2025 models.dev. Provider names and artwork remain their respective
-owners' marks. The raw upstream data, code, and attribution are preserved.
+owners' marks. The upstream model data, generation code, and attribution are preserved. Original
+artwork remains available at the source revision; the changes below normalize
+its representation without replacing provider identity.
 
 ## Reproduce
 
@@ -53,3 +55,33 @@ currently available. The OpenRouter free-only runtime checks remain separate.
 
 The final owner-fork commit containing this export must be pinned by Vector's
 release settings; the source revision above records the input used for generation.
+
+## Provider artwork normalization
+
+Four upstream SVG files contained only embedded PNG images. To satisfy Vector's
+unchanged static-SVG import rules, `atomic-chat`, `hpc-ai`, `orcarouter`, and
+`wafer.ai` now represent those exact original pixels as static paths. Horizontal
+runs of identical RGBA pixels are grouped by color, fully transparent pixels are
+omitted, and all other colors and alpha values are retained. Nested SVG viewports
+preserve each original image's dimensions and aspect-ratio behavior. The external
+DOCTYPE in `hpc-ai` was removed along with its raster wrapper.
+
+| Provider | Original PNG | Visible colors | Horizontal runs | Static SVG bytes |
+| --- | --- | ---: | ---: | ---: |
+| atomic-chat | 200 × 200 | 159 | 1,969 | 36,803 |
+| hpc-ai | 384 × 86 | 4,069 | 9,482 | 381,669 |
+| orcarouter | 42 × 22 | 225 | 381 | 11,732 |
+| wafer.ai | 93 × 92 | 28 | 616 | 10,672 |
+
+Their total size is 440,876 bytes. Chromium canvas comparison at each original
+PNG's pixel dimensions found zero differing RGBA pixels, disregarding irrelevant
+RGB channels under zero alpha. Original outer SVG dimensions remained identical;
+32px and 64px side-by-side renders were also visually reviewed. This conversion
+preserves raster detail; it does not invent higher-resolution brand artwork.
+
+`regolo-ai` only loses an editor comment before its SVG root. Its existing path
+geometry, viewBox, colors, and editor metadata remain unchanged. The complete MIT
+license is unchanged. No model TOML or `vector/api.json` bytes changed, and the
+export digest recorded above remains the same. All supplied artwork now passes
+Vector's existing static-SVG content validator; missing artwork still follows
+Vector's explicit neutral-icon policy.
