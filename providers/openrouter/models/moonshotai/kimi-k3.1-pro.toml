@@ -1,0 +1,9 @@
+# Restored from Vector's reviewed 23 October 2026 catalog; see vector/README.md.
+base_model = "moonshotai/kimi-k3.1-pro"
+
+reasoning_options = [{ type = "effort", values = ["max", "high", "low", "none"] }]
+
+[cost]
+input = 2
+output = 10
+cache_read = 0.2

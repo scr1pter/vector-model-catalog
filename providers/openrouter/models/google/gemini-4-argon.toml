@@ -1,0 +1,10 @@
+# Restored from Vector's reviewed 23 October 2026 catalog; see vector/README.md.
+base_model = "google/gemini-4-argon"
+
+reasoning_options = [{ type = "effort", values = ["high", "medium", "low"] }]
+
+[cost]
+input = 2
+output = 10
+cache_read = 0.1
+cache_write = 0.1875

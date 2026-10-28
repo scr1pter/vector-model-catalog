@@ -3,7 +3,41 @@
 This directory contains the reviewed, locally generated catalog consumed by
 Vector's release tooling. It is data, not an executable provider implementation.
 
-## Provenance
+## Codium metadata restoration (28 October 2026)
+
+The `codium-112` work branch restores four OpenRouter records from Vector's
+previously reviewed 23 October catalog: DeepSeek V4.1 Flash 1017, Claude Haiku
+5.5, Kimi K3.1 Pro and Gemini 4 Argon. The exact source is
+`packages/web/public/models/api.json` at application commit
+`bb2971e0bc10a43cc9b50f47950e48d4286cf92a` in
+`https://github.com/scr1pter/claudeondfsfdaf`. That application mirror was later
+replaced to match the older release input; these records had not reached this
+fork's source files or committed export.
+
+- Fork source revision: `d6c7d3eee3fd72ac8301574a9c9df12acb6d2e50`.
+- Raw export SHA-256: `850dd7f9ea8b55752d421c7582c9e137a55a9fbe936f66711f3039cbb3446c99`.
+- Raw export size: 5,313,020 bytes; 226 providers and 8,387 provider-model records.
+- Validation: `bun run --no-env-file validate` passed. Two runs of the documented
+  `packages/web` build produced identical `dist/_api.json` bytes under Bun 1.3.14
+  after `bun --no-env-file install --frozen-lockfile --ignore-scripts`.
+- Semantic comparison with the previous committed export found only the four
+  added OpenRouter records; every existing provider and model value is unchanged.
+
+Each new `models/` lab record and override-only `providers/openrouter/models/`
+record reconstructs the corresponding reviewed JSON record exactly, including
+capabilities, dates, modalities, reasoning controls, limits and costs. Existing
+GPT-6 Luna metadata and its context price tiers remain unchanged. DeepSeek's
+prices retain the reviewed higher time-of-day band, rather than advertising its
+lower temporary rate. Haiku retains its reviewed 100,000-token context tier.
+
+This is a restoration of captured public metadata, not a fresh availability or
+ZDR audit. No inference, billing, provider sync, deployment or account-setting
+operation is part of the export. The application must import a clean committed
+fork revision through its normal release-catalog preparation and record the
+prepared digest before using it. Do not point release settings at a moving
+branch or modify the application's mirror independently of the reviewed export.
+
+## Original export provenance (2 October 2026)
 
 - Owner repository: https://github.com/scr1pter/vector-model-catalog
 - Original repository: https://github.com/anomalyco/models.dev
