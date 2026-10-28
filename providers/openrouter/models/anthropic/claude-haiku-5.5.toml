@@ -1,0 +1,17 @@
+# Restored from Vector's reviewed 23 October 2026 catalog; see vector/README.md.
+base_model = "anthropic/claude-haiku-5.5"
+
+reasoning_options = [{ type = "effort", values = ["max", "xhigh", "high", "medium", "low", "none"] }]
+
+[cost]
+input = 0.1
+output = 0.5
+cache_read = 0.01
+cache_write = 0.125
+
+[[cost.tiers]]
+input = 0.5
+output = 2.5
+cache_read = 0.05
+cache_write = 0.625
+tier = { type = "context", size = 100000 }

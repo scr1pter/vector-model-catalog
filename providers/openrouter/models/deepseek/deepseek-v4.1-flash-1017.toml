@@ -1,0 +1,9 @@
+# Restored from Vector's reviewed 23 October 2026 catalog; see vector/README.md.
+base_model = "deepseek/deepseek-v4.1-flash-1017"
+
+reasoning_options = [{ type = "effort", values = ["max", "high", "low", "none"] }]
+
+[cost]
+input = 0.3
+output = 1.2
+cache_read = 0.006

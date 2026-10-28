@@ -1,0 +1,19 @@
+# Restored from Vector's reviewed 23 October 2026 catalog; see vector/README.md.
+description = "Fast, focused coding, tests and tool-assisted edits."
+last_updated = "2026-10-23"
+open_weights = false
+structured_output = true
+name = "Claude Haiku 5.5"
+release_date = "2026-10-07"
+attachment = true
+reasoning = true
+temperature = false
+tool_call = true
+
+[limit]
+context = 1000000
+output = 128000
+
+[modalities]
+input = ["text", "image", "pdf"]
+output = ["text"]
